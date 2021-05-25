@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AuthTextField extends StatelessWidget {
-  @override 
+  @override
   Widget build(BuildContext context) {
     return Container();
   }
