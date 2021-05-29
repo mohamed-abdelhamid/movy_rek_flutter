@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'screens/register.dart';
+import 'screens/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
             ),
       ),
       routes: {
-        '/': (context) => Registration(),
+        '/': (context) => Login(),
+        '/Registration': (context) => Registration(),
       },
       initialRoute: '/',
     );
