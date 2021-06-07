@@ -61,7 +61,7 @@ BoxDecoration kDrawerHeaderDecoration = BoxDecoration(
 BoxDecoration kImageProfileDecoration = BoxDecoration(
   shape: BoxShape.circle,
   image: DecorationImage(
-      image: new ExactAssetImage('assets/images/temp.png'),
+      image: new ExactAssetImage('assets/images/profile.jpg'),
       fit: BoxFit.fill
   ),
 );

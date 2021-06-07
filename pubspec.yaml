@@ -35,6 +35,7 @@ dev_dependencies:
   intl:
   search_widget:
   provider:
+  flutter_rating_bar:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -51,6 +52,7 @@ flutter:
   assets:
     - assets/images/temp.png
     - assets/images/poster.jpg
+    - assets/images/profile.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

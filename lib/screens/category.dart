@@ -1,19 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek/view_model/size_config.dart';
+import 'package:movy_rek/widgets/general_header_widgets/general_header_widget.dart';
 import 'package:movy_rek/widgets/search_screen_widgets/category_widget.dart';
 import 'package:movy_rek/widgets/search_screen_widgets/gradview_widget.dart';
-import 'package:movy_rek/widgets/search_screen_widgets/header_widget.dart';
 import 'package:movy_rek/widgets/search_screen_widgets/search_textfield_widget.dart';
 
-import '../styles.dart';
-
-class SearchPage extends StatefulWidget {
-  @override
-  _Search createState() => _Search();
-}
-
-class _Search extends State<SearchPage>{
+class CategoryPage extends StatelessWidget{
 
 
   @override
@@ -28,7 +21,7 @@ class _Search extends State<SearchPage>{
           elevation: 0,
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
-          title: SearchHeader(),
+          title: GeneralHeader(),
         ),
 
         body: Container(
@@ -46,7 +39,7 @@ class _Search extends State<SearchPage>{
               SearchTextField(),
               SizedBox(height: 15,),
               Expanded(
-                  child: GradView(),
+                child: GradView(),
               )
             ],
           ),
@@ -58,3 +51,4 @@ class _Search extends State<SearchPage>{
   }
 
 }
+

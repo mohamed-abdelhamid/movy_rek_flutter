@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek/category_provider.dart';
+import 'package:movy_rek/screens/category.dart';
 import 'package:movy_rek/screens/home.dart';
+import 'package:movy_rek/screens/movie.dart';
+import 'package:movy_rek/screens/profile.dart';
 import 'package:movy_rek/screens/search.dart';
 import 'package:provider/provider.dart';
 import 'screens/register.dart';
@@ -38,6 +41,9 @@ class MyApp extends StatelessWidget {
           '/Registration': (context) => Registration(),
           '/Home': (context) => Home(),
           '/Search': (context) => SearchPage(),
+          '/Category': (context) => CategoryPage(),
+          '/Profile': (context) => ProfilePage(),
+          '/Movie': (context) => MoviePage(),
         },
         initialRoute: '/',
       ),

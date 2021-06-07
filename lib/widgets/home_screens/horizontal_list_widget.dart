@@ -20,30 +20,35 @@ class HorizontalList extends StatelessWidget {
               ),
               color: Colors.white,
               elevation: 5,
-              child: Column(
-                children: [
-                  Container(
-                    height: 150,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20)),
-                      child: Image.asset(
-                        'assets/images/poster.jpg',
-                        width: 200,
-                        fit: BoxFit.fitWidth,
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/Movie');
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: 150,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20)),
+                        child: Image.asset(
+                          'assets/images/poster.jpg',
+                          width: 200,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Center(
-                      child: Text(
-                    'Dummy Card Text',
-                    style: kGeneralTextPickerStyle,
-                  )),
-                ],
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Center(
+                        child: Text(
+                      'Dummy Card Text',
+                      style: kGeneralTextPickerStyle,
+                    )),
+                  ],
+                ),
               )),
         ),
       ),

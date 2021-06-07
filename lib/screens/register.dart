@@ -12,30 +12,34 @@ class Registration extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(
-                    top: SizeConfig.blockSizeVertical * 10,
-                    bottom: SizeConfig.blockSizeVertical * 1
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        top: SizeConfig.blockSizeVertical * 10,
+                        bottom: SizeConfig.blockSizeVertical * 1
+                    ),
+                    width: SizeConfig.blockSizeHorizontal * 20,
+                    child: Image.asset(
+                      'assets/images/temp.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-                width: SizeConfig.blockSizeHorizontal * 20,
-                child: Image.asset(
-                  'assets/images/temp.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
+                Text('Create your account', style: kGeneralTitleStyle),
+                AuthTextField('Username'),
+                AuthTextField('Password'),
+                AuthTextField('Confirm Password'),
+                AuthTextField('Email address'),
+                AuthDatePicker(),
+                AuthGenderPicker(),
+                AuthButton('Sign UP'),
+              ],
             ),
-            Text('Create your account', style: kGeneralTitleStyle),
-            AuthTextField('Username'),
-            AuthTextField('Password'),
-            AuthTextField('Confirm Password'),
-            AuthTextField('Email address'),
-            AuthDatePicker(),
-            AuthGenderPicker(),
-            AuthButton('Sign UP'),
-          ],
+          ),
         ),
       ),
     );
