@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek/category_provider.dart';
+import 'package:provider/provider.dart';
 
 class DropMenu extends StatefulWidget {
   @override
@@ -7,10 +9,11 @@ class DropMenu extends StatefulWidget {
 }
 
 class Menu extends State<DropMenu> {
-  String dropdownValue ;
+  String dropdownValue;
 
   @override
   Widget build(BuildContext context) {
+    var category = Provider.of<CategoryProvider>(context);
     return Container(
       height: 40,
       margin: EdgeInsets.only(top: 15),
@@ -31,9 +34,11 @@ class Menu extends State<DropMenu> {
           onChanged: (String newValue) {
             setState(() {
               dropdownValue = newValue;
+              category.setCategory(newValue);
             });
           },
-          items: <String>['Action',
+          items: <String>[
+            'Action',
             'Comedy',
             'Drama',
             'Fantasy',
@@ -41,8 +46,9 @@ class Menu extends State<DropMenu> {
             'Mystery',
             'Romance',
             'Thriller',
-            'Western']
-              .map<DropdownMenuItem<String>>((String value) {
+            'Western',
+            'All'
+          ].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),

@@ -3,9 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek/widgets/search_screen_widgets/drop_menu.dart';
 
+import '../../category_provider.dart';
+import 'package:provider/provider.dart';
+
 class SearchHeader extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    var category = Provider.of<CategoryProvider>(context);
      return Container(
        margin: EdgeInsets.only(top: 15),
        child: Row(
@@ -15,6 +19,7 @@ class SearchHeader extends StatelessWidget{
            RawMaterialButton(
              onPressed: () {
                Navigator.pop(context);
+               category.setCategory("");
              },
              elevation: 2.0,
              fillColor: Colors.white,

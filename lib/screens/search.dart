@@ -1,9 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek/view_model/size_config.dart';
+import 'package:movy_rek/widgets/search_screen_widgets/category_widget.dart';
 import 'package:movy_rek/widgets/search_screen_widgets/header_widget.dart';
-import 'package:search_widget/search_widget.dart';
+import 'package:movy_rek/widgets/search_screen_widgets/search_textfield_widget.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -16,9 +16,6 @@ class _Search extends State<SearchPage>{
   @override
   Widget build(BuildContext context) {
 
-
-
-
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
@@ -30,11 +27,22 @@ class _Search extends State<SearchPage>{
           automaticallyImplyLeading: false,
           title: SearchHeader(),
         ),
-        body: Column(
 
-          children: [
+        body: Container(
+          margin: EdgeInsets.only(top: 20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Category(),
+                ],
+              ),
+              SizedBox(height: 15,),
 
-          ],
+              SearchTextField()
+            ],
+          ),
         ),
 
 
