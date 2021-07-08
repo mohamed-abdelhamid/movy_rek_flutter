@@ -17,7 +17,7 @@ class CategoryPage extends StatelessWidget{
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight: 76,
+          toolbarHeight: SizeConfig.blockSizeVertical * 9,
           elevation: 0,
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
@@ -25,7 +25,7 @@ class CategoryPage extends StatelessWidget{
         ),
 
         body: Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 2),
           child: Column(
             children: [
               Row(
@@ -34,10 +34,10 @@ class CategoryPage extends StatelessWidget{
                   CategoryText(),
                 ],
               ),
-              SizedBox(height: 15,),
+              SizedBox(height: SizeConfig.blockSizeVertical * 2,),
 
               SearchTextField(),
-              SizedBox(height: 15,),
+              SizedBox(height: SizeConfig.blockSizeVertical * 2,),
               Expanded(
                 child: GradView(),
               )

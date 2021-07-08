@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek/view_model/size_config.dart';
 import 'package:movy_rek/widgets/search_screen_widgets/drop_menu.dart';
 
 import '../../category_provider.dart';
@@ -10,8 +11,9 @@ class SearchHeader extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     var category = Provider.of<CategoryProvider>(context);
+    SizeConfig().init(context);
      return Container(
-       margin: EdgeInsets.only(top: 15),
+       margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 1),
        child: Row(
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
          crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +34,7 @@ class SearchHeader extends StatelessWidget{
              shape: CircleBorder(),
            ),
            Container(
-             margin: EdgeInsets.only(top: 15),
+             margin: EdgeInsets.only(top:  SizeConfig.blockSizeVertical * 2),
              child: Text("Category",
              style: TextStyle(fontSize: 25,color: Colors.black),),
            ),

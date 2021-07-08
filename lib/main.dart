@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:movy_rek/category_provider.dart';
 import 'package:movy_rek/screens/category.dart';
 import 'package:movy_rek/screens/home.dart';
-import 'package:movy_rek/screens/movie.dart';
 import 'package:movy_rek/screens/profile.dart';
+import 'package:movy_rek/screens/rating.dart';
 import 'package:movy_rek/screens/search.dart';
+import 'package:movy_rek/view_model/authentication_provider.dart';
 import 'package:provider/provider.dart';
 import 'screens/register.dart';
 import 'screens/login.dart';
@@ -15,12 +16,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return  MultiProvider(
       providers: [
         ChangeNotifierProvider<CategoryProvider>(
           create: (_) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider<AuthenticationProvider>(
+          create: (_) => AuthenticationProvider(),
         ),
       ],
       child: MaterialApp(
@@ -43,7 +48,8 @@ class MyApp extends StatelessWidget {
           '/Search': (context) => SearchPage(),
           '/Category': (context) => CategoryPage(),
           '/Profile': (context) => ProfilePage(),
-          '/Movie': (context) => MoviePage(),
+          '/Rate': (context) => RateMovie(),
+          //'/Movie': (context) => MoviePage(),
         },
         initialRoute: '/',
       ),

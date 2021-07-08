@@ -1,10 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:movy_rek/model/user.dart';
 import 'package:movy_rek/view_model/size_config.dart';
-
 import '../../styles.dart';
 
+// ignore: must_be_immutable
 class AuthDatePicker extends StatefulWidget {
+
+  PrimitiveWrapper birthDate;
+  AuthDatePicker({this.birthDate});
+
   @override
   _AuthDatePickerState createState() => _AuthDatePickerState();
 }
@@ -25,6 +32,7 @@ class _AuthDatePickerState extends State<AuthDatePicker> {
       }
       setState(() {
         _pickedDate = pickedDate;
+        widget.birthDate.value = _pickedDate;
       });
     });
   }

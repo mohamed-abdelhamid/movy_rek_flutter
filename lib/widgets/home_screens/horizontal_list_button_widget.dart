@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek/view_model/size_config.dart';
 import 'package:provider/provider.dart';
 
 import '../../category_provider.dart';
@@ -21,8 +22,9 @@ class ListButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var category = Provider.of<CategoryProvider>(context);
+    SizeConfig().init(context);
     return SizedBox(
-      height: 50.0,
+      height: SizeConfig.blockSizeVertical * 7,
       child: ListView.builder(
         physics: ClampingScrollPhysics(),
         shrinkWrap: true,
@@ -30,7 +32,7 @@ class ListButton extends StatelessWidget {
         itemCount: categories.length,
         itemBuilder: (BuildContext context, int index) => Container(
             margin: EdgeInsets.all(3),
-            width: 180,
+            width: SizeConfig.blockSizeHorizontal * 40,
             child: RaisedButton(
               color: Color(0xffB12608), // background
               textColor: Colors.white, // foreground

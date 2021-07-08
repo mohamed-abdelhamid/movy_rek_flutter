@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek/category_provider.dart';
+import 'package:movy_rek/view_model/size_config.dart';
 import 'package:provider/provider.dart';
 
 class DropMenu extends StatefulWidget {
@@ -14,9 +15,10 @@ class Menu extends State<DropMenu> {
   @override
   Widget build(BuildContext context) {
     var category = Provider.of<CategoryProvider>(context);
+    SizeConfig().init(context);
     return Container(
-      height: 40,
-      margin: EdgeInsets.only(top: 15),
+      height: SizeConfig.blockSizeVertical * 5,
+      margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 2),
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
           color: Color(0xffB12608), borderRadius: BorderRadius.circular(10)),

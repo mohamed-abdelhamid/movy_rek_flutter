@@ -24,7 +24,7 @@ class _Search extends State<SearchPage>{
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight: 76,
+          toolbarHeight: SizeConfig.blockSizeVertical * 9,
           elevation: 0,
           backgroundColor: Colors.white,
           automaticallyImplyLeading: false,
@@ -32,7 +32,7 @@ class _Search extends State<SearchPage>{
         ),
 
         body: Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 2),
           child: Column(
             children: [
               Row(
@@ -41,7 +41,7 @@ class _Search extends State<SearchPage>{
                   CategoryText(),
                 ],
               ),
-              SizedBox(height: 15,),
+              SizedBox(height: 1,),
 
               SearchTextField(),
               SizedBox(height: 15,),

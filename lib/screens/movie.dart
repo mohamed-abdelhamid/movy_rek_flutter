@@ -6,9 +6,18 @@ import 'package:movy_rek/widgets/movie_screen_widgets/movie_description_widget.d
 import 'package:movy_rek/widgets/movie_screen_widgets/movie_name_widget.dart';
 import 'package:movy_rek/widgets/movie_screen_widgets/poster_widget.dart';
 import 'package:movy_rek/widgets/movie_screen_widgets/rating_bar_widget.dart';
-import 'package:movy_rek/widgets/profile_screen_widgets/cast_widget.dart';
+import 'file:///E:/FCI/GP/app/movy_rek_flutter-mohamed-twfiek/lib/widgets/movie_screen_widgets/cast_widget.dart';
 
 class MoviePage extends StatelessWidget {
+
+  String movieName;
+  String description;
+  List<int> genreId;
+  String poster;
+  var rate;
+
+  MoviePage(this.movieName, this.description, this.genreId, this.poster, this.rate);
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -18,7 +27,7 @@ class MoviePage extends StatelessWidget {
         body: Container(
             child: Stack(
           children: [
-            Poster(),
+            Poster(poster),
             Center(
               child: Card(
 
@@ -36,15 +45,23 @@ class MoviePage extends StatelessWidget {
                   height: SizeConfig.blockSizeVertical * 60,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        MovieName("Movie Name"),
-                        RatingBarWidget(),
-                        MovieDescription(),
-                        MovieGenre(),
-                        MovieCast()
-                      ],
+                    child: SingleChildScrollView(
+                      child: Container(
+                        child: Column(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MovieName(movieName),
+                            SizedBox(height: SizeConfig.blockSizeVertical * 2,),
+                            RatingBarWidget(rate),
+                            SizedBox(height: SizeConfig.blockSizeVertical * 2,),
+                            MovieDescription(description),
+                            SizedBox(height: SizeConfig.blockSizeVertical * 2,),
+                            MovieGenre(genreId),
+                            SizedBox(height: SizeConfig.blockSizeVertical * 2,),
+                            MovieCast()
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),

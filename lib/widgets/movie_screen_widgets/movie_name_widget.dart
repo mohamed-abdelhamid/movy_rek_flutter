@@ -9,12 +9,7 @@ class MovieName extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text("${label}" ,style: TextStyle(color: Colors.black,fontSize: 25),)
-      ],
-    );
+    return Center(child: Text("${label}" ,style: TextStyle(color: Colors.black,fontSize: 25),textAlign: TextAlign.center,));
   }
 
 }

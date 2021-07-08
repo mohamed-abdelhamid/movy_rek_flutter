@@ -1,42 +1,35 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek/view_model/size_config.dart';
 import '../../styles.dart';
 
 
 class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+
+    SizeConfig().init(context);
     return Drawer(
         child: ListView(
           children: [
             DrawerHeader(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: Column(
                 children: [
-                  Container(
-                      width: 80,
-                      height: 80,
-                      decoration: kImageProfileDecoration
-                  ),
-                  SizedBox(width: 10,),
-                  Text("movy_rek_team",
-                    style: TextStyle(fontSize: 20, color: Colors.white),)
+                new CircleAvatar(
+                radius: SizeConfig.blockSizeVertical * 7,
+                backgroundColor: const Color(0xFFFFFF),
+                backgroundImage: NetworkImage("https://www.woolha.com/media/2020/03/eevee.png",), // for Network image
+
+              ), //For Image Asset
+              Text("Movie Rec")
+
                 ],
               ),
 
               decoration: kDrawerHeaderDecoration,),
 
             Card(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/Profile');
-                  },
-                  child: ListTile(
-                    leading: Icon(Icons.account_circle),
-                    title: Text("Profile", style: kGeneralTextPickerStyle,),
-                  ),
-                )
+            child: CustomListTile(Icons.account_circle, "Profile", '/Profile'),
             ),
 
             Card(
@@ -73,4 +66,25 @@ class DrawerWidget extends StatelessWidget {
           ],
         ));
   }
+
+}
+class CustomListTile extends StatelessWidget{
+  IconData icon;
+  String text;
+  String path;
+
+  CustomListTile(this.icon, this.text, this.path);
+
+  @override
+  Widget build(BuildContext context) {
+      return InkWell(
+        splashColor: Colors.red,
+        onTap: () =>{Navigator.pushNamed(context, path)},
+        child: ListTile(
+          leading: Icon(icon),
+          title: Text(text, style: kGeneralTextPickerStyle,),
+        ),
+      );
+  }
+
 }

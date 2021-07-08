@@ -2,13 +2,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek/view_model/size_config.dart';
-import 'package:movy_rek/widgets/authentication_screens_widgets/button_widget.dart';
 import 'package:movy_rek/widgets/general_header_widgets/general_header_widget.dart';
 import 'package:movy_rek/widgets/profile_screen_widgets/divider_widget.dart';
 import 'package:movy_rek/widgets/profile_screen_widgets/edit_profile_button_widget.dart';
 import 'package:movy_rek/widgets/profile_screen_widgets/profile_support_widget.dart';
 import 'package:movy_rek/widgets/profile_screen_widgets/profile_text_widget.dart';
-
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import '../styles.dart';
 
 class ProfilePage extends StatelessWidget{
@@ -38,9 +37,26 @@ class ProfilePage extends StatelessWidget{
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          height: SizeConfig.blockSizeVertical * 15,
-                            width: SizeConfig.blockSizeHorizontal * 25,
-                            decoration: kImageProfileDecoration
+//                          height: SizeConfig.blockSizeVertical * 15,
+//                            width: SizeConfig.blockSizeHorizontal * 25,
+//                            decoration: kImageProfileDecoration
+                           child: CircularProfileAvatar(
+                              null,
+                              child: Icon(
+                                Icons.person,
+                                size: 140,
+                              ),
+                              borderColor: Colors.black,
+                              borderWidth: 3,
+                              elevation: 5,
+                              radius: 75,
+
+                             onTap: () {
+
+                             },
+
+                            )
+
                         ),
                         SizedBox(width: 20,),
                         Column(

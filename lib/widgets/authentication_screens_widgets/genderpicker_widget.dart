@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek/model/user.dart';
 import 'package:movy_rek/view_model/size_config.dart';
 
 import '../../styles.dart';
 
 class AuthGenderPicker extends StatefulWidget {
+
+  PrimitiveWrapper gender;
+  AuthGenderPicker({this.gender});
+
   @override
   _AuthGenderPickerState createState() => _AuthGenderPickerState();
 }
@@ -29,6 +34,10 @@ class _AuthGenderPickerState extends State<AuthGenderPicker> {
           onChanged: (String newValue) {
             setState(() {
               dropdownValue = newValue;
+              if (newValue == 'Male')
+                widget.gender.value='m';
+              else if (newValue == 'Female')
+                widget.gender.value='f';
             });
           },
           items: <String>['Male', 'Female']

@@ -36,6 +36,10 @@ dev_dependencies:
   search_widget:
   provider:
   flutter_rating_bar:
+  http:
+  readmore:
+  circular_profile_avatar:
+  form_field_validator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

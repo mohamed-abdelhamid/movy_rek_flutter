@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movy_rek/model/user.dart';
 import 'package:movy_rek/view_model/size_config.dart';
 
-import '../../styles.dart';
 
-class AuthButton extends StatelessWidget {
+class NextButton extends StatelessWidget {
   final label;
-  final Function onPressed;
 
-  const AuthButton({this.label, this.onPressed});
+  const NextButton(this.label);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +14,9 @@ class AuthButton extends StatelessWidget {
       width: SizeConfig.blockSizeHorizontal * 90,
       height: SizeConfig.blockSizeVertical * 8,
       child: MaterialButton(
-        onPressed: onPressed,
+        onPressed: () {
+          Navigator.pushNamed(context, '/Home');
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),

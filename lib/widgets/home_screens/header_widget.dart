@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek/view_model/size_config.dart';
 
 class HomeHeader extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey;
@@ -8,7 +9,7 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    SizeConfig().init(context);
     return Container(
       margin: EdgeInsets.only(top: 15),
       child: Row(
@@ -30,8 +31,8 @@ class HomeHeader extends StatelessWidget {
           Image.asset(
             'assets/images/temp.png',
             fit: BoxFit.fitHeight,
-            width: 50.0,
-            height: 50.0,
+            width: SizeConfig.blockSizeHorizontal * 15,
+            height: SizeConfig.blockSizeVertical * 7,
           ),
           RawMaterialButton(
             onPressed: () {

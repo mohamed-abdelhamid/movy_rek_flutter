@@ -10,16 +10,16 @@ import '../view_model/size_config.dart';
 
 class Home extends StatelessWidget {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
+
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         key: _scaffoldKey,
         appBar: AppBar(
-            toolbarHeight: 76,
+            toolbarHeight: SizeConfig.blockSizeVertical * 9,
             elevation: 0,
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false,

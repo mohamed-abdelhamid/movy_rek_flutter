@@ -45,8 +45,9 @@ BoxDecoration kRegistrationDatePickerDecoration = BoxDecoration(
 BoxDecoration kDrawerHeaderDecoration = BoxDecoration(
   gradient: new LinearGradient(
       colors: [
-        Color(0xffF2553D),
-        Color(0xffF9F7F7),
+        Color(0xffB12608),
+        Color(0xffB12608),
+
       ],
       stops: [
         0.0,
