@@ -31,4 +31,9 @@ class Genre {
     return genreList;
   }
 
+  int getGenreID(String genre){
+    return this.genresMap.keys.firstWhere(
+            (k) => genresMap[k] == genre, orElse: () => null);
+  }
+
 }

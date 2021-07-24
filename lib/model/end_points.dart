@@ -13,3 +13,4 @@ const Map kMapOfEP = {
   'Trending':  'https://api.themoviedb.org/3/trending/movie/day?api_key=631b53c2d55c71c205704a35b2793f8f',
   'Upcoming':  'https://api.themoviedb.org/3/movie/upcoming?api_key=631b53c2d55c71c205704a35b2793f8f&language=en-US',
 };
+const String kSearchMovieEP = 'https://api.themoviedb.org/3/search/movie?api_key=631b53c2d55c71c205704a35b2793f8f&language=en-US';

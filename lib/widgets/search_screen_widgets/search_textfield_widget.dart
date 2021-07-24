@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 class SearchTextField extends StatelessWidget {
 
 
-   TextEditingController controller;
+   final TextEditingController controller;
    FocusNode focusNode;
+
+  SearchTextField({Key key, this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,7 @@ class SearchTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         focusNode: focusNode,
+        onTap: ()=>controller.clear(),
         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(

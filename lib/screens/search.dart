@@ -4,6 +4,7 @@ import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/category_widget.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/listview_widget.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/header_widget.dart';
+import 'package:movy_rek_app/widgets/search_screen_widgets/movie_smart_list.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/search_textfield_widget.dart';
 
 
@@ -16,6 +17,7 @@ class SearchPage extends StatefulWidget {
 
 class _Search extends State<SearchPage>{
 
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +45,11 @@ class _Search extends State<SearchPage>{
                 ],
               ),
               SizedBox(height: 1,),
-
-              SearchTextField(),
+              SearchTextField(controller: this.controller,),
               SizedBox(height: 15,),
-              Expanded(
-                  //child: GradView(),
-              )
+              controller.value.text == '' ? Container():
+              Expanded(child: MovieListWidget(controller.value.text)),
+
             ],
           ),
         ),
