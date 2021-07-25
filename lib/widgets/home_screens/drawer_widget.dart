@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek_app/screens/login.dart';
+import 'package:movy_rek_app/view_model/logout_service.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import '../../styles.dart';
 
@@ -54,9 +56,19 @@ class DrawerWidget extends StatelessWidget {
               ),
             ),
             Card(
-              child: ListTile(
-                leading: Icon(Icons.launch),
-                title: Text("Logout", style: kGeneralTextPickerStyle,),
+              child: InkWell(
+                splashColor: Colors.red,
+                onTap: () async =>{
+                  //Navigator.pushNamed(context, '/'),
+                  await LogoutApi().postData(),
+                  Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/Login', (Route<dynamic> route) => false)
+                },
+                child: ListTile(
+                  leading: Icon(Icons.launch),
+                  title: Text("Logout", style: kGeneralTextPickerStyle,
+                  ),
+                ),
               ),
             ),
 

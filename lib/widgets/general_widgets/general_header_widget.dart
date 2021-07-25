@@ -7,17 +7,17 @@ class GeneralHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     //var category = Provider.of<CategoryProvider>(context);
     return Container(
-        height: SizeConfig.blockSizeVertical * 8,
+        height: SizeConfig.blockSizeVertical * 11,
         margin: EdgeInsets.only(top: 15),
         child: IntrinsicHeight(
           child: Stack(
             children: [
               Align(
                 child: Image.asset(
-                  'assets/images/logo.png',
+                  'assets/images/temp.png',
                   fit: BoxFit.fitHeight,
-                  width: SizeConfig.blockSizeVertical * 100,
-                  height: SizeConfig.blockSizeHorizontal * 100,
+                  width: SizeConfig.blockSizeVertical * 15,
+                  height: SizeConfig.blockSizeHorizontal * 12,
                 ),
               ),
               Positioned(

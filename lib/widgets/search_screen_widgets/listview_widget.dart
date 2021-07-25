@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/model/movie_model.dart';
@@ -52,7 +53,7 @@ class CategoryListView extends StatelessWidget {
               elevation: 5,
               child: InkWell(
                 onTap: () {
-                  if (lable == "category") {
+                  if (lable == 'category' || lable == 'search') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -71,9 +72,11 @@ class CategoryListView extends StatelessWidget {
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),
-                          child: Image.network(
-                            imageURL + moviesList[index].posterPath,
+                          child: CachedNetworkImage(
+                            imageUrl: '$imageURL${moviesList[index].posterPath}',
                             fit: BoxFit.fill,
+                            placeholder: (context,url) => Center(child: CircularProgressIndicator()),
+                            errorWidget: (context,url,error) => Center(child: Text('Image not available')),
                           )),
                     ),
                     SizedBox(

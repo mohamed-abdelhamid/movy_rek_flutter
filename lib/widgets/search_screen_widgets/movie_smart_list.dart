@@ -1,39 +1,39 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/model/end_points.dart';
-import 'package:movy_rek_app/model/genre_model.dart';
 import 'package:movy_rek_app/model/movie_model.dart';
+import 'package:movy_rek_app/view_model/category_provider.dart';
 import 'package:movy_rek_app/view_model/movie_service.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
-import 'package:movy_rek_app/widgets/search_screen_widgets/listview_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'listview_widget.dart';
 
-class CategoryListWidget extends StatefulWidget {
-  String category;
+class MovieListWidget extends StatefulWidget {
+  final String movie;
 
-  CategoryListWidget(this.category);
+  MovieListWidget(this.movie);
 
   @override
-  _CategoryWidgetState createState() => _CategoryWidgetState();
+  _MovieListWidget createState() => _MovieListWidget();
 }
 
-class _CategoryWidgetState extends State<CategoryListWidget> {
+class _MovieListWidget extends State<MovieListWidget> {
   RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController(initialRefresh: false);
   GlobalKey _refresherKey = GlobalKey();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String url;
   int count = 1;
-  List<Movie> data = List();
+  List<Movie> data = [];
 
   @override
   void initState() {
     super.initState();
-    url = _getUrl(widget.category);
+    url = _getUrl(widget.movie);
     MovieApi(url).fetchData().then((dataFromServer) {
       setState(() {
-        data = dataFromServer.results;
+        data.addAll(filterByGenre(dataFromServer.results));
       });
     });
   }
@@ -44,7 +44,8 @@ class _CategoryWidgetState extends State<CategoryListWidget> {
     var moviePage = await MovieApi(url).fetchData(page: count);
     var list = moviePage.results;
     data.clear();
-    data.addAll(list);
+    // filter movies by genre
+    data.addAll(filterByGenre(list));
     setState(() {
       count = (count > 10) ? 1 : count;
       _refreshController.refreshCompleted();
@@ -57,8 +58,8 @@ class _CategoryWidgetState extends State<CategoryListWidget> {
       count++;
       var moviePage = await MovieApi(url).fetchData(page: count);
       var list = moviePage.results;
-      data.addAll(list);
-      await Future.delayed(Duration(seconds: 2));
+      data.addAll(filterByGenre(list));
+      await Future.delayed(Duration(seconds: 1));
       setState(() {
         _refreshController.loadComplete();
       });
@@ -77,7 +78,7 @@ class _CategoryWidgetState extends State<CategoryListWidget> {
         controller: _refreshController,
         enablePullUp: true,
         enablePullDown: true,
-        child: CategoryListView(data,"category"),
+        child: CategoryListView(data,"search"),
         physics: BouncingScrollPhysics(),
         footer: ClassicFooter(
           loadStyle: LoadStyle.ShowWhenLoading,
@@ -92,15 +93,20 @@ class _CategoryWidgetState extends State<CategoryListWidget> {
     );
   }
 
-  String _getUrl(String category) {
-    var tmp = ['Top Rated', 'Trending', 'Upcoming'];
-    if (tmp.contains(category)) {
-      return kMapOfEP[category];
-    } else {
-      int genreId = Genre().genresMap.keys.firstWhere(
-          (element) => Genre().genresMap[element] == category,
-          orElse: () => null);
-      return kCategorydEP + '$genreId';
-    }
+  String _getUrl(String movie) {
+    return '$kSearchMovieEP&query=$movie&page=$count&include_adult=false';
+  }
+
+  Iterable<Movie> filterByGenre(List<Movie> list) {
+    List<Movie> data = [];
+    if(Provider.of<CategoryProvider>(context,listen: false).category == 'All' || Provider.of<CategoryProvider>(context,listen: false).category == '')
+      data.addAll(list);
+    else
+      for(var movie in list){
+        if (movie.genreIds.contains(Provider.of<CategoryProvider>(context,listen: false).categoryID)){
+          data.add(movie);
+        }
+      }
+    return data;
   }
 }

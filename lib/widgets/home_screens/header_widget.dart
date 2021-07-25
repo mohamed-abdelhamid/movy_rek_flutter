@@ -29,7 +29,7 @@ class HomeHeader extends StatelessWidget {
             shape: CircleBorder(),
           ),
           Image.asset(
-            'assets/images/logo.png',
+            'assets/images/temp.png',
             fit: BoxFit.fitHeight,
             width: SizeConfig.blockSizeHorizontal * 15,
             height: SizeConfig.blockSizeVertical * 7,

@@ -42,16 +42,23 @@ class Menu extends State<DropMenu> {
             });
           },
           items: <String>[
-            'Action',
-            'Comedy',
-            'Drama',
-            'Fantasy',
-            'Horror',
-            'Mystery',
-            'Romance',
-            'Thriller',
-            'Western',
-            'All'
+            "Action",
+            "Adventure",
+            "Animation",
+            "Comedy",
+            "Crime",
+            "Drama",
+            "Fantasy",
+            "History",
+            "Horror",
+            "Music",
+            "Mystery",
+            "Science Fiction",
+            "TV Movie",
+            "Thriller",
+            "War",
+            "Western",
+            "All"
           ].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,

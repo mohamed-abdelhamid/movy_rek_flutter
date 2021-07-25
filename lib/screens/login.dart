@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:movy_rek_app/model/local_storage.dart';
 import 'package:movy_rek_app/model/user.dart';
+import 'package:movy_rek_app/screens/activate_account.dart';
+import 'package:movy_rek_app/screens/home.dart';
 import 'package:movy_rek_app/view_model/authentication_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/authentication_screens_widgets/button_widget.dart';
 import 'package:movy_rek_app/widgets/authentication_screens_widgets/textfied_widget.dart';
+import 'package:movy_rek_app/widgets/general_widgets/general_toast_widget.dart';
 import 'package:provider/provider.dart';
 import '../styles.dart';
 
@@ -15,12 +21,15 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
+  bool isAuth = false;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+
+
     SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -44,7 +53,7 @@ class _LoginState extends State<Login> {
               ),
               Text('Welcome Back!', style: kGeneralTitleStyle),
               AuthTextField(
-                label:'Username',
+                label: 'Username',
                 controller: usernameController,
                 isPassword: false,
                 validator: MultiValidator([
@@ -52,25 +61,43 @@ class _LoginState extends State<Login> {
                 ]),
               ),
               AuthTextField(
-                label:'Password',
+                label: 'Password',
                 controller: passwordController,
                 isPassword: true,
                 validator: MultiValidator([
                   RequiredValidator(errorText: 'password is required'),
-                  MinLengthValidator(8, errorText: 'password must be at least 8 digits'),
-                  PatternValidator(r'(?=.*?[#?!@$%^&*-_])', errorText: 'passwords must have at least one special character'),
+
                 ]),
               ),
               SizedBox(height: SizeConfig.blockSizeVertical * 2),
               AuthButton(
-                label:'Login',
-                onPressed: (){
-                  if(formKey.currentState.validate()){
+                label: 'Login',
+                onPressed: () async {
+                  if (formKey.currentState.validate()) {
                     User user = User(
                       username: usernameController.text,
                       password: passwordController.text,
                     );
-                   Provider.of<AuthenticationProvider>(context,listen: false).login(user);
+
+                    String flag = await Provider.of<AuthenticationProvider>(
+                            context,
+                            listen: false)
+                        .login(user);
+                    if (flag == "true") {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => Home()));
+                    } else if (flag == "not") {
+                      Navigator.pushNamed(context, "/ActivateAccount");
+                    } else {
+                      return Fluttertoast.showToast(
+                          msg: "Incorrect username or password",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.grey,
+                          textColor: Colors.black,
+                          fontSize: 16.0);
+                    }
                   }
                 },
               ),
@@ -94,18 +121,20 @@ class _LoginState extends State<Login> {
                         style: kGeneralTextFieldLabelStyle,
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           Navigator.pushNamed(context, '/Registration');
                         },
                         child: Text(
-                          'SIGN UP',
-                          style: TextStyle(color: Theme.of(context).primaryColor),
+                          ' SIGN UP',
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor,fontSize: 18),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
+              SizedBox(height: SizeConfig.blockSizeVertical * 2),
             ],
           ),
         ),

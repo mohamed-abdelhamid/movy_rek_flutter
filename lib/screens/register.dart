@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:movy_rek_app/model/user.dart';
+import 'package:movy_rek_app/screens/activate_account.dart';
 import 'package:movy_rek_app/view_model/authentication_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/authentication_screens_widgets/button_widget.dart';
@@ -76,8 +78,8 @@ class _RegistrationState extends State<Registration> {
                   label:'Confirm Password',
                   validator: MultiValidator([
                     RequiredValidator(errorText: 'password is required'),
-                    MinLengthValidator(8, errorText: 'password must be at least 8 digits'),
-                    PatternValidator(r'(?=.*?[#?!@$%^&*-_])', errorText: 'passwords must have at least one special character'),
+                    MinLengthValidator(6, errorText: 'password must be at least 8 digits'),
+                    //PatternValidator(r'(?=.*?[#?!@$%^&*-_])', errorText: 'passwords must have at least one special character'),
                   ]),
                   isPassword: true,
                   controller: confirmPassController,
@@ -99,7 +101,7 @@ class _RegistrationState extends State<Registration> {
                 ),
                 AuthButton(
                   label: 'Sign up',
-                  onPressed: (){
+                  onPressed: () async {
                     if (formKey.currentState.validate()){
                       if (passwordController.text == confirmPassController.text){
                         User user = User(
@@ -108,9 +110,23 @@ class _RegistrationState extends State<Registration> {
                           password: passwordController.text,
                           birthDate: DateFormat('yyyy-MM-dd').format(birthDate.value),
                           gender: gender.value,
+
                         );
-                        Provider.of<AuthenticationProvider>(context,listen: false).register(user);
-                        Navigator.pushNamed(context, "/Rate");
+                        print(user.password);
+                        print(user.email);
+                        print(user.password);
+
+                        Map map = await Provider.of<AuthenticationProvider>(context,listen: false).register(user);
+                        if (map['code'] == 200) {
+                          releaseToast(map['message']);
+
+
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                builder: (BuildContext context) => ActivateAccount()));
+                        }else{
+                          releaseToast(map['message']);
+                        }
+                        //Navigator.pushNamed(context, "/Rate");
                       }
                     }
                   },
@@ -121,5 +137,16 @@ class _RegistrationState extends State<Registration> {
         ),
       ),
     );
+  }
+
+  void releaseToast(String msg) {
+    Fluttertoast.showToast(
+        msg: msg,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.grey,
+        textColor: Colors.black,
+        fontSize: 13.0);
   }
 }
