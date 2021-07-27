@@ -1,13 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek_app/screens/activate_account.dart';
 import 'package:movy_rek_app/screens/category.dart';
 import 'package:movy_rek_app/screens/edit_profile.dart';
 import 'package:movy_rek_app/screens/home.dart';
 import 'package:movy_rek_app/screens/profile.dart';
 import 'package:movy_rek_app/screens/rating.dart';
 import 'package:movy_rek_app/screens/search.dart';
+import 'package:movy_rek_app/screens/splash.dart';
 import 'package:movy_rek_app/screens/watch_list.dart';
+import 'package:movy_rek_app/view_model/rate_movie_provider.dart';
 import 'package:movy_rek_app/view_model/authentication_provider.dart';
+import 'package:movy_rek_app/view_model/rate_provider.dart';
 
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -16,12 +20,17 @@ import 'screens/register.dart';
 import 'screens/login.dart';
 
 void main() {
-  runApp(MyApp());
+
+    runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
+
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<CategoryProvider>(
@@ -29,6 +38,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<AuthenticationProvider>(
           create: (_) => AuthenticationProvider(),
+        ),
+        ChangeNotifierProvider<RateMovieProvider>(
+          create: (_) => RateMovieProvider(),
+        ),
+        ChangeNotifierProvider<RateProvider>(
+          create: (_) => RateProvider(),
         ),
       ],
       child: RefreshConfiguration(
@@ -64,9 +79,11 @@ class MyApp extends StatelessWidget {
                 ),
           ),
           routes: {
-            //'/': (context) => Login(),
-            '/': (context) => RateMovie(),
+            '/': (context) => Splash(),
+            '/Login': (context) => Login(),
+            '/Rating': (context) => RateMovie(),
             '/Registration': (context) => Registration(),
+            //'/': (context) => Registration(),
             '/Home': (context) => Home(),
             '/Search': (context) => SearchPage(),
             '/Category': (context) => CategoryPage(),
@@ -74,6 +91,7 @@ class MyApp extends StatelessWidget {
             '/Rate': (context) => RateMovie(),
             '/EditProfile': (context) => EditProfile(),
             '/WatchList': (context) => WatchList(),
+            '/ActivateAccount': (context) =>  ActivateAccount(),
             //'/Movie': (context) => MoviePage(),
           },
           initialRoute: '/',

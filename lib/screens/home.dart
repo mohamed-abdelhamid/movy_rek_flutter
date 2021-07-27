@@ -2,12 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/model/end_points.dart';
 import 'package:movy_rek_app/model/movie_page_model.dart';
+import 'package:movy_rek_app/model/movie_rocommendation_model.dart';
 import 'package:movy_rek_app/view_model/movie_service.dart';
+import 'package:movy_rek_app/view_model/recommendation_service.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
-import 'package:movy_rek_app/widgets/home_screens/Listview_widget.dart';
 import 'package:movy_rek_app/widgets/home_screens/drawer_widget.dart';
 import 'package:movy_rek_app/widgets/home_screens/header_widget.dart';
 import 'package:movy_rek_app/widgets/home_screens/horizontal_list_button_widget.dart';
+import '../widgets/home_screens/recommendation/horizontal_list_recommendation.dart';
 import 'package:movy_rek_app/widgets/home_screens/horizontal_list_widget.dart';
 import 'package:movy_rek_app/widgets/home_screens/list_title_widget.dart';
 import 'package:movy_rek_app/widgets/home_screens/see_all_text_widget.dart';
@@ -24,12 +26,14 @@ class _ListViewPageState extends State<Home> {
   GlobalKey _refresherKey = GlobalKey();
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Future<MoviePageModel> upComingData,toRatedData,trendData;
+  Future<MovieRecommendationModel> recommendationData;
   int count = 1;
 
 
   @override
   void initState() {
     super.initState();
+    recommendationData = RecommendationApi(kRecommendationEP).fetchData();
     trendData = MovieApi(kTrendEP).fetchData(page: count);
     toRatedData = MovieApi(kTopRatedEP).fetchData(page: count);
     upComingData = MovieApi(kUpcomingEP).fetchData(page: count);
@@ -44,6 +48,7 @@ class _ListViewPageState extends State<Home> {
       trendData = MovieApi(kTrendEP).fetchData(page: count);
       toRatedData = MovieApi(kTopRatedEP).fetchData(page: count);
       upComingData = MovieApi(kUpcomingEP).fetchData(page: count);
+      recommendationData = RecommendationApi(kRecommendationEP).fetchData();
       _refreshController.refreshCompleted();
 
     });
@@ -98,7 +103,7 @@ class _ListViewPageState extends State<Home> {
                   SizedBox(
                     height: SizeConfig.blockSizeVertical * 2,
                   ),
-                  HorizontalList(trendData),
+                  HorizontalListRecommendation(recommendationData),
                   SizedBox(
                     height: SizeConfig.blockSizeVertical * 2,
                   ),

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:movy_rek_app/model/end_points.dart';
-import 'package:movy_rek_app/model/genre_model.dart';
 import 'package:movy_rek_app/model/movie_model.dart';
 import 'package:movy_rek_app/view_model/category_provider.dart';
 import 'package:movy_rek_app/view_model/movie_service.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
-import 'package:movy_rek_app/widgets/search_screen_widgets/listview_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import 'listview_widget.dart';
 
 class MovieListWidget extends StatefulWidget {
   final String movie;

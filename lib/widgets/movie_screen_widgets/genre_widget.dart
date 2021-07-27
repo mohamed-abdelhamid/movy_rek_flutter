@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/model/genre_model.dart';
+import 'package:movy_rek_app/model/movie_rocommendation_model.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/category_provider.dart';
 
 class MovieGenre extends StatelessWidget{
-  List<int> genreId;
+  var genreId;
 
   MovieGenre(this.genreId);
 
@@ -15,7 +16,8 @@ class MovieGenre extends StatelessWidget{
   Widget build(BuildContext context) {
     var category = Provider.of<CategoryProvider>(context);
 
-    List<String> genreList = Genre().getGenre(genreId);
+    List<String> genreList = genreId is List<int> ? Genre().getGenre(genreId) : Genre().getGenreRecommendation(genreId) ;
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

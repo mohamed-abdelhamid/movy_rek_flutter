@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/category_widget.dart';
-import 'package:movy_rek_app/widgets/search_screen_widgets/listview_widget.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/header_widget.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/movie_smart_list.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/search_textfield_widget.dart';

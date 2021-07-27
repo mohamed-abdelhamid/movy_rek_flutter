@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/general_widgets/general_header_widget.dart';
+import 'package:movy_rek_app/widgets/home_screens/recommendation/see_all_recommendation_smart_list.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/search_textfield_widget.dart';
 import 'package:movy_rek_app/widgets/search_screen_widgets/category_smart_list.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ class CategoryPage extends StatelessWidget {
     var category = Provider.of<CategoryProvider>(context);
 
     SizeConfig().init(context);
+    Widget widget = category.category == 'Recommendation' ? RecommendationListWidget(category.category) : CategoryListWidget(category.category);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -36,11 +38,11 @@ class CategoryPage extends StatelessWidget {
               SizedBox(
                 height: SizeConfig.blockSizeVertical * 2,
               ),
-              SearchTextField(),
+              //SearchTextField(),
               SizedBox(
                 height: SizeConfig.blockSizeVertical * 2,
               ),
-              Expanded(child: CategoryListWidget(category.category))
+              Expanded(child: widget)
             ],
           ),
         ),

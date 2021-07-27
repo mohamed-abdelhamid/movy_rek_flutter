@@ -1,3 +1,5 @@
+import 'movie_rocommendation_model.dart';
+
 class Genre {
 
   var genresMap = {
@@ -6,14 +8,12 @@ class Genre {
     16: "Animation",
     35: "Comedy",
     80: "Crime",
-    99: "Documentary",
     18: "Drama",
     14: "Fantasy",
     36: "History",
     27: "Horror",
     10402: "Music",
     9648: "Mystery",
-    10749: "Romance",
     878: "Science Fiction",
     10770: "TV Movie",
     53: "Thriller",
@@ -31,9 +31,23 @@ class Genre {
     return genreList;
   }
 
+  List<String> getGenreRecommendation (List<Genres> genreID){
+
+    List<String> genreList = [];
+    for(var genre in genreID){
+      if(genresMap.containsKey(genre.id)){
+        print("hjjh");
+        genreList.add(genresMap[genre.id]);}
+    }
+
+    return genreList;
+  }
+
   int getGenreID(String genre){
     return this.genresMap.keys.firstWhere(
             (k) => genresMap[k] == genre, orElse: () => null);
   }
+
+
 
 }

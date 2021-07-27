@@ -11,7 +11,6 @@ class CategoryListView extends StatelessWidget {
   String lable;
   final imageURL = "https://image.tmdb.org/t/p/w300/";
 
-
   CategoryListView(this.moviesList, this.lable);
 
   @override
@@ -54,14 +53,13 @@ class CategoryListView extends StatelessWidget {
               elevation: 5,
               child: InkWell(
                 onTap: () {
-                  if (lable == "category" || lable == "search" ) {
+                  if (lable == 'category' || lable == 'search') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => MoviePage(moviesList[index])),
                     );
-                  }
-                  else {
+                  } else {
                     _deleteMovieDialog(context, moviesList[index].title);
                   }
                 },
@@ -79,8 +77,7 @@ class CategoryListView extends StatelessWidget {
                             fit: BoxFit.fill,
                             placeholder: (context,url) => Center(child: CircularProgressIndicator()),
                             errorWidget: (context,url,error) => Center(child: Text('Image not available')),
-                          ),
-                          ),
+                          )),
                     ),
                     SizedBox(
                         height: SizeConfig.blockSizeVertical * 5,

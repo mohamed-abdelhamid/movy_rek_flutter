@@ -1,13 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek_app/view_model/authentication_provider.dart';
+import 'package:movy_rek_app/view_model/logout_service.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../styles.dart';
+import 'dart:io' as io;
 
 
 class DrawerWidget extends StatelessWidget {
+
+  SharedPreferences userData;
+
   @override
   Widget build(BuildContext context) {
-
+    userData = Provider.of<AuthenticationProvider>(context).userData;
     SizeConfig().init(context);
     return Drawer(
         child: ListView(
@@ -17,11 +25,11 @@ class DrawerWidget extends StatelessWidget {
                 children: [
                 new CircleAvatar(
                 radius: SizeConfig.blockSizeVertical * 7,
-                backgroundColor: const Color(0xFFFFFF),
-                backgroundImage: NetworkImage("https://www.woolha.com/media/2020/03/eevee.png",), // for Network image
-
+                  backgroundImage: userData.containsKey("picture") ?
+                  FileImage(io.File(userData.getString("picture")))
+                      :null,
               ), //For Image Asset
-              Text("Movie Rec")
+              Text(userData.getString("username")),
 
                 ],
               ),
@@ -54,9 +62,19 @@ class DrawerWidget extends StatelessWidget {
               ),
             ),
             Card(
-              child: ListTile(
-                leading: Icon(Icons.launch),
-                title: Text("Logout", style: kGeneralTextPickerStyle,),
+              child: InkWell(
+                splashColor: Colors.red,
+                onTap: () async =>{
+                  //Navigator.pushNamed(context, '/'),
+                  await LogoutApi().postData(),
+                  Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/Login', (Route<dynamic> route) => false)
+                },
+                child: ListTile(
+                  leading: Icon(Icons.launch),
+                  title: Text("Logout", style: kGeneralTextPickerStyle,
+                  ),
+                ),
               ),
             ),
 

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek_app/screens/home.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 
 class RatingHeader extends StatelessWidget {
@@ -32,7 +33,8 @@ class RatingHeader extends StatelessWidget {
           ),
           RaisedButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/Home');
+              Navigator.pushReplacement(context,
+                  new MaterialPageRoute(builder: (context) => Home()));
             },
             elevation: 2.0,
             color: Colors.white,
@@ -68,9 +70,10 @@ class RatingHeader extends StatelessWidget {
     var alertDialog = AlertDialog(
       title: Text('Rate movies to receive recommendations'),
       content: Text(
-        'Rate the following movies according to your preferences. '
-        'You can click NEXT MOVIE to go to the next movie. '
-        'You can also press the skip button to go to the home page.',
+        '* You must rate some movies to get personalized recommendations.\n'
+        '* You can click NEXT MOVIE to go to the next movie. \n'
+        '* You can also press the skip button to go to the home page. \n',
+//
         style: TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 const TextStyle kGeneralTextFieldLabelStyle = TextStyle(
   color: Colors.grey,
-  fontSize: 14.0,
+  fontSize: 18.0,
 );
 
 const TextStyle kGeneralTextTitleStyle = TextStyle(

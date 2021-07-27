@@ -1,42 +1,39 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movy_rek_app/model/end_points.dart';
-import 'package:movy_rek_app/model/movie_model.dart';
-import 'package:movy_rek_app/model/movie_page_model.dart';
-import 'package:movy_rek_app/screens/movie.dart';
+import 'package:movy_rek_app/model/movie_rocommendation_model.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
-import 'package:movy_rek_app/view_model/movie_service.dart';
+import 'package:movy_rek_app/widgets/home_screens/recommendation/recommendation_movie_page.dart';
 
-import '../../styles.dart';
 
-class HorizontalList extends StatefulWidget {
-  Future<MoviePageModel> futureData;
+class HorizontalListRecommendation extends StatefulWidget {
+  Future<MovieRecommendationModel> futureData;
 
-  HorizontalList(this.futureData);
+  HorizontalListRecommendation(this.futureData);
 
   @override
   MovieList createState() => MovieList();
 }
 
-class MovieList extends State<HorizontalList> {
+class MovieList extends State<HorizontalListRecommendation> {
   final imageURL = "https://image.tmdb.org/t/p/w300/";
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     SizeConfig().init(context);
     return SizedBox(
         height: SizeConfig.blockSizeVertical * 25,
-        child: FutureBuilder<MoviePageModel>(
+        child: FutureBuilder<MovieRecommendationModel>(
             future: widget.futureData,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                List<Movie> moviesList = snapshot.data.results;
+                List<Movies> moviesList = snapshot.data.movies;
+                print(moviesList.length);
                 return ListView.builder(
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 10,
+                  itemCount: moviesList.length,
                   itemBuilder: (BuildContext context, int index) => Container(
                     width: SizeConfig.blockSizeHorizontal * 40,
                     child: Card(
@@ -51,7 +48,7 @@ class MovieList extends State<HorizontalList> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      MoviePage(moviesList[index])),
+                                      MoviePageRecommendation(moviesList[index])),
                             );
                           },
                           child: Column(
@@ -63,7 +60,7 @@ class MovieList extends State<HorizontalList> {
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(20),
                                         topRight: Radius.circular(20)),
-                                    child:  CachedNetworkImage(
+                                    child: CachedNetworkImage(
                                       imageUrl: '$imageURL${moviesList[index].posterPath}',
                                       fit: BoxFit.fill,
                                       placeholder: (context,url) => Center(child: CircularProgressIndicator()),

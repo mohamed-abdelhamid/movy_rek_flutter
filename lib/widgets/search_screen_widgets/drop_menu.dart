@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
-import 'package:movy_rek_app/widgets/search_screen_widgets/movie_smart_list.dart';
 
 import 'package:provider/provider.dart';
 
@@ -43,16 +42,23 @@ class Menu extends State<DropMenu> {
             });
           },
           items: <String>[
-            'Action',
-            'Comedy',
-            'Drama',
-            'Fantasy',
-            'Horror',
-            'Mystery',
-            'Romance',
-            'Thriller',
-            'Western',
-            'All'
+            "Action",
+            "Adventure",
+            "Animation",
+            "Comedy",
+            "Crime",
+            "Drama",
+            "Fantasy",
+            "History",
+            "Horror",
+            "Music",
+            "Mystery",
+            "Science Fiction",
+            "TV Movie",
+            "Thriller",
+            "War",
+            "Western",
+            "All"
           ].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,

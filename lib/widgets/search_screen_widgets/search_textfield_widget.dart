@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class SearchTextField extends StatelessWidget {
 
 
-   final TextEditingController controller;
-   FocusNode focusNode;
+  final TextEditingController controller;
+  FocusNode focusNode;
 
   SearchTextField({Key key, this.controller}) : super(key: key);
 
