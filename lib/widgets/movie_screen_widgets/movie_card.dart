@@ -3,18 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/model/movie_model.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
-import 'package:movy_rek_app/widgets/movie_screen_widgets/rating_bar_widget.dart';
+import '../rate_movie_screen_widgets/rating_bar_widget.dart';
 
 
 import 'cast_widget.dart';
 import 'genre_widget.dart';
 import 'movie_description_widget.dart';
 import 'movie_name_widget.dart';
+import 'movie_rating_bar_widget.dart';
 
-class MovieCard extends StatelessWidget{
+class MovieCard extends StatelessWidget {
   Movie movie;
+  double rate;
 
-  MovieCard(this.movie);
+
+  MovieCard(this.movie, this.rate);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class MovieCard extends StatelessWidget{
                   SizedBox(
                     height: SizeConfig.blockSizeVertical * 2,
                   ),
-                  RatingBarWidget(movie.voteAverage),
+                  MovieRatingBarWidget(rate,movie.id),
                   SizedBox(
                     height: SizeConfig.blockSizeVertical * 2,
                   ),
@@ -65,3 +68,4 @@ class MovieCard extends StatelessWidget{
   }
 
 }
+

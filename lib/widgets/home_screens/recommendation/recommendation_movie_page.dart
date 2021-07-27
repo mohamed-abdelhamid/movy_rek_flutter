@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movy_rek_app/model/movie_model.dart';
 import 'package:movy_rek_app/model/movie_rocommendation_model.dart';
+import 'package:movy_rek_app/model/watchlist_model.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
+import 'package:movy_rek_app/view_model/watchlist_service.dart';
 import 'package:movy_rek_app/widgets/general_widgets/general_toast_widget.dart';
 import 'package:movy_rek_app/widgets/home_screens/recommendation/recommendation_movie_card.dart';
 import 'package:movy_rek_app/widgets/movie_screen_widgets/movie_card.dart';
@@ -12,8 +14,9 @@ import 'package:movy_rek_app/widgets/movie_screen_widgets/reviews_button_widget.
 
 class MoviePageRecommendation extends StatelessWidget {
   Movies movie;
+  double rate;
 
-  MoviePageRecommendation(this.movie);
+  MoviePageRecommendation(this.movie,this.rate);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +27,10 @@ class MoviePageRecommendation extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           foregroundColor: Colors.white,
           child: Icon(Icons.playlist_add),
-          onPressed: () {
-            GeneralToast("This Movie Added To WatchList").toast();
+          onPressed: () async {
+            WatchListModel watchListModel = await WatchListApi().AddToWatchList(movie.id);
+            GeneralToast(watchListModel.message).toast();
+
           },
         ),
         backgroundColor: Colors.white,
@@ -72,7 +77,7 @@ class MoviePageRecommendation extends StatelessWidget {
                 right: SizeConfig.blockSizeHorizontal * 3,
                 top: SizeConfig.blockSizeVertical * 20,
                 bottom: SizeConfig.blockSizeVertical * 25,
-                child: MovieCardRecommendation(movie),
+                child: MovieCardRecommendation(movie,rate),
               ),
             ),
             Positioned.fill(

@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek_app/model/MovieInteractions.dart';
 import 'package:movy_rek_app/model/movie_rocommendation_model.dart';
+import 'package:movy_rek_app/view_model/movie_interactions_service.dart';
+import 'package:movy_rek_app/view_model/rate_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/home_screens/recommendation/recommendation_movie_page.dart';
+import 'package:provider/provider.dart';
 
 
 class HorizontalListRecommendation extends StatefulWidget {
@@ -33,7 +37,7 @@ class MovieList extends State<HorizontalListRecommendation> {
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: moviesList.length,
+                  itemCount: 15,
                   itemBuilder: (BuildContext context, int index) => Container(
                     width: SizeConfig.blockSizeHorizontal * 40,
                     child: Card(
@@ -43,12 +47,14 @@ class MovieList extends State<HorizontalListRecommendation> {
                         color: Colors.white,
                         elevation: 5,
                         child: InkWell(
-                          onTap: () {
+                          onTap: () async{
+//                            MovieInteractions movieInteractions=  await MovieInteractionsApi(moviesList[index].id).fetchData();
+//                            double rate = movieInteractions.rating == null ? 0.0 : movieInteractions.rating;
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      MoviePageRecommendation(moviesList[index])),
+                                      MoviePageRecommendation(moviesList[index],0)),
                             );
                           },
                           child: Column(

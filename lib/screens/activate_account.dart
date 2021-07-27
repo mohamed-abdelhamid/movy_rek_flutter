@@ -11,6 +11,7 @@ import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/view_model/userinfo_service.dart';
 import 'package:movy_rek_app/widgets/authentication_screens_widgets/button_widget.dart';
 import 'package:movy_rek_app/widgets/authentication_screens_widgets/textfied_widget.dart';
+import 'package:movy_rek_app/widgets/general_widgets/general_toast_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../styles.dart';
@@ -87,14 +88,8 @@ class _ActivateAccountState extends State<ActivateAccount> {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (BuildContext context) => RateMovie()));
                   } else {
-                    return Fluttertoast.showToast(
-                        msg: map['message'],
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.grey,
-                        textColor: Colors.black,
-                        fontSize: 16.0);
+                    GeneralToast(map['message']).toast();
+
                   }
                 }
               },

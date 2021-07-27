@@ -2,7 +2,10 @@ import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
 import 'package:movy_rek_app/model/movie_reviews_model.dart';
 import 'package:movy_rek_app/model/review_model.dart';
+import 'package:movy_rek_app/model/user_review_model.dart';
 import 'package:movy_rek_app/view_model/review_service.dart';
+import 'package:movy_rek_app/view_model/user_review_service.dart';
+import 'package:movy_rek_app/widgets/general_widgets/general_toast_widget.dart';
 
 class CommentWidget extends StatefulWidget {
   int movieId;
@@ -86,7 +89,7 @@ class _Comment extends State<CommentWidget> {
           labelText: 'Write a comment...',
           withBorder: false,
           errorText: 'Comment cannot be blank',
-          sendButtonMethod: () {
+          sendButtonMethod: () async {
             if (formKey.currentState.validate()) {
               print(commentController.text);
               setState(() {
@@ -98,6 +101,9 @@ class _Comment extends State<CommentWidget> {
                 };
 //                filedata.insert(0, value);
               });
+              UserReview userReview = await UserReviewApi().addReview(widget.movieId, commentController.text);
+              print(userReview.message);
+              GeneralToast(userReview.message).toast();
               commentController.clear();
               FocusScope.of(context).unfocus();
             } else {

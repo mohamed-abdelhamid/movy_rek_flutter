@@ -1,13 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek_app/model/MovieInteractions.dart';
 import 'package:movy_rek_app/model/movie_model.dart';
+import 'package:movy_rek_app/model/watchlist_model.dart';
 import 'package:movy_rek_app/screens/movie.dart';
+import 'package:movy_rek_app/view_model/movie_interactions_service.dart';
+import 'package:movy_rek_app/view_model/rate_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
+import 'package:movy_rek_app/view_model/watchlist_service.dart';
+import 'package:movy_rek_app/widgets/general_widgets/general_toast_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 import '../../styles.dart';
 
 class CategoryListView extends StatelessWidget {
-  List<Movie> moviesList;
+  var moviesList;
   String lable;
   final imageURL = "https://image.tmdb.org/t/p/w300/";
 
@@ -52,15 +61,18 @@ class CategoryListView extends StatelessWidget {
               color: Colors.white,
               elevation: 5,
               child: InkWell(
-                onTap: () {
+                onTap: () async{
+//                  MovieInteractions movieInteractions =  await MovieInteractionsApi(moviesList[index].id).fetchData();
+//                  double rate = movieInteractions.rating == null ? 0.0 : movieInteractions.rating;
                   if (lable == 'category' || lable == 'search') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MoviePage(moviesList[index])),
+                          builder: (context) => MoviePage(moviesList[index],0.0)),
                     );
                   } else {
-                    _deleteMovieDialog(context, moviesList[index].title);
+                    //_deleteMovieDialog(context, moviesList[index].title);
+                    AlertDialog(context, index);
                   }
                 },
                 child: Column(
@@ -73,10 +85,13 @@ class CategoryListView extends StatelessWidget {
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),
                           child: CachedNetworkImage(
-                            imageUrl: '$imageURL${moviesList[index].posterPath}',
+                            imageUrl:
+                                '$imageURL${moviesList[index].posterPath}',
                             fit: BoxFit.fill,
-                            placeholder: (context,url) => Center(child: CircularProgressIndicator()),
-                            errorWidget: (context,url,error) => Center(child: Text('Image not available')),
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                Center(child: Text('Image not available')),
                           )),
                     ),
                     SizedBox(
@@ -106,38 +121,40 @@ class CategoryListView extends StatelessWidget {
     }
   }
 
-  Future<void> _deleteMovieDialog(
-      BuildContext context, String movieName) async {
-    return showDialog(
+  void AlertDialog(BuildContext context, int index) {
+    Alert(
         context: context,
-        builder: (context) {
-          return Container(
-
-            child: AlertDialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              title: Text('Delete Movie'),
-              content: Center(
-                  child: Text(
-                movieName,
-                style: TextStyle(color: Colors.black),
-              )),
-              actions: <Widget>[
-                FlatButton(
-                  color: Colors.green,
-                  textColor: Colors.white,
-                  child: Text('CANCEL'),
-                  onPressed: () {},
-                ),
-                FlatButton(
-                  color: Theme.of(context).primaryColor,
-                  textColor: Colors.white,
-                  child: Text('Delete'),
-                  onPressed: () {},
-                ),
-              ],
+        title: 'Delete Movie',
+        content: Column(
+          children: <Widget>[
+            Text(
+              'Do you want delete ' + moviesList[index].title + ' movie ?',
+              style: TextStyle(color: Colors.black),
             ),
-          );
-        });
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(
+              "Cancel",
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            color: Colors.green,
+          ),
+          DialogButton(
+            onPressed: () async {
+              WatchListModel watchListModel = await WatchListApi()
+                  .RemoveFromWatchList(moviesList[index].id);
+              GeneralToast(watchListModel.message).toast();
+              Navigator.pop(context);
+            },
+            child: Text(
+              "Delete",
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            ),
+            color: Colors.red,
+          )
+        ]).show();
   }
 }

@@ -1,11 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek_app/model/MovieInteractions.dart';
 import 'package:movy_rek_app/model/movie_model.dart';
 import 'package:movy_rek_app/model/movie_rocommendation_model.dart';
 import 'package:movy_rek_app/screens/movie.dart';
+import 'package:movy_rek_app/view_model/movie_interactions_service.dart';
+import 'package:movy_rek_app/view_model/rate_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/home_screens/recommendation/recommendation_movie_page.dart';
+import 'package:provider/provider.dart';
 
 class RecommendationListView extends StatelessWidget {
   Future<MovieRecommendationModel> recommendationData;
@@ -39,12 +43,14 @@ class RecommendationListView extends StatelessWidget {
                   color: Colors.white,
                   elevation: 5,
                   child: InkWell(
-                    onTap: () {
+                    onTap: () async {
+//                      MovieInteractions movieInteractions=  await MovieInteractionsApi(moviesList[index].id).fetchData();
+//                      double rate = movieInteractions.rating == null ? 0.0 : movieInteractions.rating;
                       if (lable == "category") {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MoviePageRecommendation(moviesList[index])),
+                              builder: (context) => MoviePageRecommendation(moviesList[index],0)),
                         );
                       } else {
                         _deleteMovieDialog(context, moviesList[index].title);

@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movy_rek_app/model/MovieInteractions.dart';
 import 'package:movy_rek_app/model/end_points.dart';
 import 'package:movy_rek_app/model/movie_model.dart';
 import 'package:movy_rek_app/model/movie_page_model.dart';
 import 'package:movy_rek_app/screens/movie.dart';
+import 'package:movy_rek_app/view_model/movie_interactions_service.dart';
+import 'package:movy_rek_app/view_model/rate_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/view_model/movie_service.dart';
+import 'package:provider/provider.dart';
 
 import '../../styles.dart';
 
@@ -46,12 +50,14 @@ class MovieList extends State<HorizontalList> {
                         color: Colors.white,
                         elevation: 5,
                         child: InkWell(
-                          onTap: () {
+                          onTap: () async {
+//                            MovieInteractions movieInteractions=  await MovieInteractionsApi(moviesList[index].id).fetchData();
+//                            double rate = movieInteractions.rating == null ? 0.0 : movieInteractions.rating;
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      MoviePage(moviesList[index])),
+                                      MoviePage(moviesList[index],0)),
                             );
                           },
                           child: Column(

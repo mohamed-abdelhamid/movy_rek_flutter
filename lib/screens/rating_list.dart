@@ -5,15 +5,15 @@ import 'package:movy_rek_app/model/movie_rocommendation_model.dart';
 import 'package:movy_rek_app/view_model/recommendation_service.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/general_widgets/general_header_widget.dart';
-import 'package:movy_rek_app/widgets/search_screen_widgets/listview_widget.dart';
+import 'package:movy_rek_app/widgets/rating_list_screen/rating_listview.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class WatchList extends StatefulWidget {
+class RatingList extends StatefulWidget {
   @override
-  _WatchListState createState() => _WatchListState();
+  _RatingListState createState() => _RatingListState();
 }
 
-class _WatchListState extends State<WatchList> {
+class _RatingListState extends State<RatingList> {
   List<Movies> data = [];
   RefreshController _refreshController =
   RefreshController(initialRefresh: false);
@@ -23,9 +23,10 @@ class _WatchListState extends State<WatchList> {
   @override
   void initState() {
     super.initState();
-    RecommendationApi(kWatchListEP).fetchData().then((dataFromServer) {
+    RecommendationApi(kRatingListEP).fetchData().then((dataFromServer) {
       setState(() {
         data = dataFromServer.movies;
+        print(data.length);
       });
     });
 
@@ -34,7 +35,7 @@ class _WatchListState extends State<WatchList> {
   void _onRefresh() async {
     await Future.delayed(Duration(seconds: 2));
 
-    RecommendationApi(kWatchListEP).fetchData().then((dataFromServer) {
+    RecommendationApi(kRatingListEP).fetchData().then((dataFromServer) {
       setState(() {
         data = dataFromServer.movies;
       });
@@ -42,7 +43,6 @@ class _WatchListState extends State<WatchList> {
     _refreshController.refreshCompleted();
 
   }
-
   @override
   Widget build(BuildContext context) {
 
@@ -72,13 +72,13 @@ class _WatchListState extends State<WatchList> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Watch List", style: TextStyle(fontSize: 25)),
+                      Text("Rating List", style: TextStyle(fontSize: 25)),
                     ],
                   ),
                   SizedBox(
                     height: SizeConfig.blockSizeVertical * 2,
                   ),
-                  Expanded(child: CategoryListView(data,"watchlist"))
+                  Expanded(child: RatingListView(data,))
                 ],
               ),
             ),
@@ -88,7 +88,6 @@ class _WatchListState extends State<WatchList> {
             ),
             onRefresh: _onRefresh,
           ),
-
         ),
       ),
       headerBuilder: () => WaterDropMaterialHeader(

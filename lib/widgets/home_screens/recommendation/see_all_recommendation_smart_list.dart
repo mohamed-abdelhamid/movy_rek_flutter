@@ -57,7 +57,7 @@ class _CategoryWidgetState extends State<RecommendationListWidget> {
         header: WaterDropHeader(),
         key: _refresherKey,
         controller: _refreshController,
-        enablePullUp: true,
+        //enablePullUp: true,
         enablePullDown: true,
         child: RecommendationListView(recommendationData,"category"),
         physics: BouncingScrollPhysics(),

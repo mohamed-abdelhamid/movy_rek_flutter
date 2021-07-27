@@ -3,12 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:movy_rek_app/view_model/authentication_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/widgets/general_widgets/general_header_widget.dart';
 import 'package:movy_rek_app/widgets/profile_screen_widgets/divider_widget.dart';
 import 'package:movy_rek_app/widgets/profile_screen_widgets/edit_profile_button_widget.dart';
 import 'package:movy_rek_app/widgets/profile_screen_widgets/profile_support_widget.dart';
 import 'package:movy_rek_app/widgets/profile_screen_widgets/profile_text_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../styles.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -17,17 +20,26 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  File _image;
-  Future _getImage() async{
+
+  SharedPreferences userData;
+  var img;
+
+
+  Future _getImage() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-      print("_image:$_image");
-    });
+    img = FileImage(File(image.path));
+    await userData.setString("picture", image.path);
+    setState(() {});
   }
+
+
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<AuthenticationProvider>(context,listen:false).initializePref();
+    userData = Provider.of<AuthenticationProvider>(context,listen:false).userData;
+    img = userData.containsKey("picture") ? FileImage(File(userData.getString("picture"))) : null;
+
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
@@ -56,7 +68,9 @@ class _ProfilePageState extends State<ProfilePage> {
 //                            decoration: kImageProfileDecoration
                           child: CircularProfileAvatar(
                             null,
-                            child:_image == null ? Icon(Icons.person, size: 140,): Image.file(_image,fit: BoxFit.cover,) ,
+                            child:img != null ?
+                            Image(image: img,fit: BoxFit.fill,)
+                                : Icon(Icons.person, size: 140,) ,
                             borderColor: Colors.black,
                             borderWidth: 3,
                             elevation: 5,
@@ -70,12 +84,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Movy Rek",
+                            userData != null ? userData.getString("username"): 'Username',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "Movyrek@yahoo.com",
+                            userData != null ? userData.getString("email") : 'Email',
                             style: TextStyle(
                               fontSize: 15,
                             ),

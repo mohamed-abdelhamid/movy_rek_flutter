@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movy_rek_app/model/movie_rocommendation_model.dart';
 import 'package:movy_rek_app/view_model/rate_movie_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
-import 'package:movy_rek_app/widgets/movie_screen_widgets/rating_bar_widget.dart';
+import 'rating_bar_widget.dart';
 import 'package:provider/provider.dart';
 
 class RateMovieCard extends StatelessWidget {

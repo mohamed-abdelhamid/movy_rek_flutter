@@ -8,6 +8,7 @@ class RateMovieProvider with ChangeNotifier{
   int movieId = 49026;
   String buttonLabel = "Next Movie";
   double movieRate = 0.0;
+  bool  isVisible = false;
 
 
 
@@ -25,6 +26,10 @@ class RateMovieProvider with ChangeNotifier{
   }
   updateInitRate(double initRate){
     movieRate = initRate;
+    notifyListeners();
+  }
+  updateSkipButton(){
+    isVisible = true;
     notifyListeners();
   }
 }

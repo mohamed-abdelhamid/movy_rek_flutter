@@ -1,14 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movy_rek_app/screens/login.dart';
+import 'package:movy_rek_app/view_model/authentication_provider.dart';
 import 'package:movy_rek_app/view_model/logout_service.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../styles.dart';
+import 'dart:io' as io;
+
+class DrawerWidget extends StatefulWidget {
+  @override
+  _DrawerWidgetState createState() => _DrawerWidgetState();
+}
+
+class _DrawerWidgetState extends State<DrawerWidget> {
+  SharedPreferences userData;
 
 
-class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    userData = Provider.of<AuthenticationProvider>(context).userData;
 
     SizeConfig().init(context);
     return Drawer(
@@ -17,13 +28,13 @@ class DrawerWidget extends StatelessWidget {
             DrawerHeader(
               child: Column(
                 children: [
-                new CircleAvatar(
-                radius: SizeConfig.blockSizeVertical * 7,
-                backgroundColor: const Color(0xFFFFFF),
-                backgroundImage: NetworkImage("https://www.woolha.com/media/2020/03/eevee.png",), // for Network image
-
-              ), //For Image Asset
-              Text("Movie Rec")
+                  new  CircleAvatar(
+                    radius: SizeConfig.blockSizeVertical * 7,
+                    backgroundImage: userData.containsKey("picture") ?
+                    FileImage(io.File(userData.getString("picture")))
+                        :null,
+                  ), //For Image Asset
+                  Text(userData.getString("username")),
 
                 ],
               ),
@@ -31,17 +42,15 @@ class DrawerWidget extends StatelessWidget {
               decoration: kDrawerHeaderDecoration,),
 
             Card(
-            child: CustomListTile(Icons.account_circle, "Profile", '/Profile'),
+              child: CustomListTile(Icons.account_circle, "Profile", '/Profile'),
             ),
 
             Card(
               child: CustomListTile(Icons.list, "Watchlist", '/WatchList'),
             ),
             Card(
-              child: ListTile(
-                leading: Icon(Icons.star),
-                title: Text("Ratings", style: kGeneralTextPickerStyle,),
-              ),
+
+              child:  CustomListTile(Icons.star, "Rating List", '/RatingList'),
             ),
             Card(
               child: ListTile(
@@ -62,7 +71,7 @@ class DrawerWidget extends StatelessWidget {
                   //Navigator.pushNamed(context, '/'),
                   await LogoutApi().postData(),
                   Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/Login', (Route<dynamic> route) => false)
+                      .pushNamedAndRemoveUntil('/Login', (Route<dynamic> route) => false)
                 },
                 child: ListTile(
                   leading: Icon(Icons.launch),
@@ -86,14 +95,16 @@ class CustomListTile extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-      return InkWell(
-        splashColor: Colors.red,
-        onTap: () =>{Navigator.pushNamed(context, path)},
-        child: ListTile(
-          leading: Icon(icon),
-          title: Text(text, style: kGeneralTextPickerStyle,),
-        ),
-      );
+    return InkWell(
+      splashColor: Colors.red,
+      onTap: () =>{Navigator.pushNamed(context, path)},
+      child: ListTile(
+        leading: Icon(icon),
+        title: Text(text, style: kGeneralTextPickerStyle,),
+      ),
+    );
   }
 
 }
+
+

@@ -34,6 +34,7 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
+
     SizeConfig().init(context);
     return Scaffold(
       body: SafeArea(
@@ -119,7 +120,6 @@ class _RegistrationState extends State<Registration> {
                         Map map = await Provider.of<AuthenticationProvider>(context,listen: false).register(user);
                         if (map['code'] == 200) {
                           releaseToast(map['message']);
-
 
                             Navigator.of(context).pushReplacement(MaterialPageRoute(
                                 builder: (BuildContext context) => ActivateAccount()));

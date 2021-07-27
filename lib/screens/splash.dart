@@ -4,8 +4,10 @@ import 'package:movy_rek_app/model/local_storage.dart';
 import 'package:movy_rek_app/model/user_info.dart';
 import 'package:movy_rek_app/screens/activate_account.dart';
 import 'package:movy_rek_app/screens/rating.dart';
+import 'package:movy_rek_app/view_model/authentication_provider.dart';
 import 'package:movy_rek_app/view_model/size_config.dart';
 import 'package:movy_rek_app/view_model/userinfo_service.dart';
+import 'package:provider/provider.dart';
 import 'home.dart';
 import 'login.dart';
 
@@ -22,8 +24,7 @@ class _SplashState extends State<Splash> {
   void runSecure() async {
     SecureStorage secureStorage = SecureStorage();
     String token = await secureStorage.getToken('token');
-    if (token != null){
-      //secureStorage.deleteAll();
+    if (token != null){//ksecureStorage.deleteAll();
       print("hhhhhh");
       print(token);
       UserInfo userInfo = await UserInfoApi().fetchData();
@@ -41,7 +42,7 @@ class _SplashState extends State<Splash> {
       Future.delayed(Duration(seconds: 1), () async {
         await runSecure();
         if (isAuth && isActive) { // when user auth and account active
-          if (ratings_count < 2) { //check if user ratings list equal 0 go to RateMoviePage
+          if (ratings_count == 0) { //check if user ratings list equal 0 go to RateMoviePage
             Navigator.pushReplacement(context,
                 new MaterialPageRoute(builder: (context) => RateMovie()));
           } else { // else go to HomePage
@@ -61,6 +62,7 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<AuthenticationProvider>(context,listen:false).initializePref();
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(

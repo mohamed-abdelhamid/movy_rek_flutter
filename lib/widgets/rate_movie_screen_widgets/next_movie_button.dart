@@ -21,13 +21,17 @@ class NextButton extends StatelessWidget {
       child: MaterialButton(
         onPressed: () {
           movie.updateInitRate(0.0);
-          if (movie.count < 10) {
+          if (movie.count < 28) {
             movie.setMovie(moviesRateList[movie.count]);
           } else {
             movie.updateButtonLabel();
             Navigator.pushReplacement(
                 context, new MaterialPageRoute(builder: (context) => Home()));
             //Navigator.pushNamed(context, '/Home');
+          }
+          if(movie.count == 3){
+            print("visible");
+            movie.updateSkipButton();
           }
         },
         shape: RoundedRectangleBorder(

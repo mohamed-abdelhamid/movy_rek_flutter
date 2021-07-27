@@ -35,4 +35,8 @@ class RateProvider extends ChangeNotifier{
     var response = await net.updateData();
     return response.toString();
   }
+
+
+
+
 }

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:movy_rek_app/screens/activate_account.dart';
 import 'package:movy_rek_app/screens/category.dart';
 import 'package:movy_rek_app/screens/edit_profile.dart';
+import 'package:movy_rek_app/screens/forget_user_password.dart';
 import 'package:movy_rek_app/screens/home.dart';
 import 'package:movy_rek_app/screens/profile.dart';
 import 'package:movy_rek_app/screens/rating.dart';
+import 'package:movy_rek_app/screens/rating_list.dart';
 import 'package:movy_rek_app/screens/search.dart';
 import 'package:movy_rek_app/screens/splash.dart';
 import 'package:movy_rek_app/screens/watch_list.dart';
@@ -91,7 +93,9 @@ class MyApp extends StatelessWidget {
             '/Rate': (context) => RateMovie(),
             '/EditProfile': (context) => EditProfile(),
             '/WatchList': (context) => WatchList(),
+            '/RatingList': (context) => RatingList(),
             '/ActivateAccount': (context) =>  ActivateAccount(),
+            '/ForgetPassword': (context) =>  ForgetPassword(),
             //'/Movie': (context) => MoviePage(),
           },
           initialRoute: '/',

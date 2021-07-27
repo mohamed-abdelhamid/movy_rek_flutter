@@ -30,6 +30,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
 
 
+
     SizeConfig().init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -89,14 +90,7 @@ class _LoginState extends State<Login> {
                     } else if (flag == "not") {
                       Navigator.pushNamed(context, "/ActivateAccount");
                     } else {
-                      return Fluttertoast.showToast(
-                          msg: "Incorrect username or password",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.grey,
-                          textColor: Colors.black,
-                          fontSize: 16.0);
+                      GeneralToast("Incorrect username or password").toast();
                     }
                   }
                 },
@@ -107,6 +101,9 @@ class _LoginState extends State<Login> {
                   'Forget Password?',
                   style: kGeneralTextFieldLabelStyle,
                 ),
+                onTap: () {
+                  Navigator.pushNamed(context, '/ForgetPassword');
+                },
               ),
               Expanded(
                 child: Align(

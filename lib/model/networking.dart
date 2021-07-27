@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Networking {
   Networking({this.body, this.url});
+
   SecureStorage secureStorage = SecureStorage();
   var body;
   String url;
@@ -16,10 +17,11 @@ class Networking {
     // Await the http get response, then decode the json-formatted response.
     if (body != null) {
       var response;
-      if (url == kActivateEP) {
+      if (url == kActivateEP || url == kResetPasswordEP) {
         response = await http.put(Uri.parse(url),
             headers: {"Content-Type": "application/json"}, body: body);
       } else {
+        print("dasdasdasd");
         response = await http.post(Uri.parse(url),
             headers: {"Content-Type": "application/json"}, body: body);
       }
@@ -41,42 +43,44 @@ class Networking {
   }
 
   Future addData() async {
-
     if (body != null) {
       String token = await secureStorage.getToken('token');
-       var response = await http.post(Uri.parse(url),
-           headers: {'Content-Type': 'application/json','Authorization' : 'Bearer $token'}, body: body);
+      var response = await http.post(Uri.parse(url),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          },
+          body: body);
       if (response.statusCode >= 200 && response.statusCode < 400) {
         print('success');
         print(response.body);
         return response.body;
       } else {
-
         print('Request failed with status: ${response.statusCode}.');
         print(response.body);
-        return ;
+        return;
       }
     }
   }
 
   Future updateData() async {
-
     if (body != null) {
       String token = await secureStorage.getToken('token');
       var response = await http.patch(Uri.parse(url),
-          headers: {'Content-Type': 'application/json','Authorization' : 'Bearer $token'}, body: body);
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          },
+          body: body);
       if (response.statusCode >= 200 && response.statusCode < 400) {
         print('success');
         print(response.body);
         return response.body;
       } else {
-
         print('Request failed with status: ${response.statusCode}.');
         print(response.body);
-        return ;
+        return;
       }
     }
   }
-
-
 }

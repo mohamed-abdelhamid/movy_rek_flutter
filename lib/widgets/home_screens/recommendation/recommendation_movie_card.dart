@@ -8,14 +8,16 @@ import 'package:movy_rek_app/widgets/movie_screen_widgets/cast_widget.dart';
 import 'package:movy_rek_app/widgets/movie_screen_widgets/genre_widget.dart';
 import 'package:movy_rek_app/widgets/movie_screen_widgets/movie_description_widget.dart';
 import 'package:movy_rek_app/widgets/movie_screen_widgets/movie_name_widget.dart';
-import 'package:movy_rek_app/widgets/movie_screen_widgets/rating_bar_widget.dart';
+import 'package:movy_rek_app/widgets/movie_screen_widgets/movie_rating_bar_widget.dart';
+import '../../rate_movie_screen_widgets/rating_bar_widget.dart';
 
 
 
 class MovieCardRecommendation extends StatelessWidget{
   Movies movie;
+  double rate;
 
-  MovieCardRecommendation(this.movie);
+  MovieCardRecommendation(this.movie,this.rate);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class MovieCardRecommendation extends StatelessWidget{
                   SizedBox(
                     height: SizeConfig.blockSizeVertical * 2,
                   ),
-                  RatingBarWidget(movie.voteAverage),
+                  MovieRatingBarWidget(rate,movie.id),
                   SizedBox(
                     height: SizeConfig.blockSizeVertical * 2,
                   ),
